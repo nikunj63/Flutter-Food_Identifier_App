@@ -10,72 +10,84 @@ class SplashScreen extends StatefulWidget {
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
+
 /// Splash screen Page
 class _SplashScreenState extends State<SplashScreen>
-   with SingleTickerProviderStateMixin {
-    String name = "";
-    _readName()async{
-      final value = await NameSave().readSave();
+    with SingleTickerProviderStateMixin {
+  String name = "";
+
+  Future<void> _readName() async {
+    final value = await NameSave().readSave();
+    setState(() {
       name = value;
-    }
-    void iniState(){
-      super.initState();
-      WidgetsBinding.instance.addPostFrameCallback((_){
-        _init();
-      });
-    }
+    });
+  }
 
-    void _init() async{
-      await _readName();
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _init();
+    });
+  }
 
-      if (name.isEmpty|| name == ""){
-        _navigateToNameInput();
-      } else{
-        _navigateToNameInput();
-      }
-    }
+  void _init() async {
+    await _readName();
 
-    void _navigateToNameInput(){
-      Future.delayed(const Duration(seconds:2),(){
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (_)=> const NameInputPage(),
-          )
-        );
-      });
+    if (name.isEmpty || name == "") {
+      _navigateToNameInput();
+    } else {
+      _navigateToMainMenu();
     }
-    void _navigatorToMainMenu(){
-      Future.delayed(const Duration(seconds:2),(){
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (_)=> MainMenu(
-              name: name,
-              )
-            )
-        );
-      });
-    }
-    @override
-    void dispose(){
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-      overlays: SystemUiOverlay.values);
-      super.dispose();
-    }
+  }
+
+  void _navigateToNameInput() {
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => const NameInputPage(),
+        ),
+      );
+    });
+  }
+
+  void _navigateToMainMenu() {
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => MainMenu(
+            name: name,
+          ),
+        ),
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:Container(
-        foregroundDecoration:const BoxDecoration(
-          image:
-          DecorationImage(image:AssetImage('assets/images/logo.png'))),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
+      body: Container(
+        foregroundDecoration: const BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/images/logo.png')),
+        ),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
               Colors.orange.shade600,
               Colors.white,
-              Colors.greenAccent.shade400
-            ],begin:Alignment.topRight, end:Alignment.bottomLeft
-            )
+              Colors.greenAccent.shade400,
+            ],
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
           ),
+        ),
       ),
     );
   }

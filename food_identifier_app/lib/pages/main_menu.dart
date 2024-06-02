@@ -7,7 +7,6 @@ import 'package:food_identifier_app/widgets.dart';
 class MainMenu extends StatefulWidget {
   final String name;
   const MainMenu({super.key, required this.name});
-
   @override
   State<MainMenu> createState() => _MainMenuState();
 }
@@ -15,7 +14,6 @@ class MainMenu extends StatefulWidget {
 class _MainMenuState extends State<MainMenu> {
   final searchkey = GlobalKey<FormState>();
   TextEditingController search = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

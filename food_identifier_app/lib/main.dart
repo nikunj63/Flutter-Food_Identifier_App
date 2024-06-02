@@ -5,7 +5,7 @@ import 'package:food_identifier_app/services/name_save.dart';
 Future<void>main()async{
   WidgetsFlutterBinding.ensureInitialized();
   await NameSave().writeFirstSave();
-  runApp( MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Food Identifier App',
       theme : ThemeData(fontFamily:'Italiana'),
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }
